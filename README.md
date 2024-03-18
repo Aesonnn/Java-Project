@@ -1,2 +1,2 @@
 ﻿# Java-Project
-Web Application For A Payroll System that allows to store payrolls, add taxes to them and assign employees
+Web Application For A Payroll System that allows to store payrolls, add taxes and assign them to employees
