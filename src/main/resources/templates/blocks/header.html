@@ -1,0 +1,30 @@
+<div th:fragment="header">
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 pl-5 border-bottom">
+        <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none">
+        <span class="fs-4">Page</span>
+        </a>
+
+        <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/">Main</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/departments">Departments</a>
+        
+        <div class="dropdown"> <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/employees" id="employeesDropdown">Employees</a>
+
+            <div class="dropdown-content" id="employeesDropdownMenu"> <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/employees/filter">Filter employees</a>
+            </div>
+        </div>
+
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/positions">Positions</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/taxes">Taxes</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/payrolls">Payrolles</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/employees/filter">Filter employees</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/about">Support</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/positions/summary">Pos summary</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/payrolls/summary">Pay summary</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/positions/filter">Pos filter</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/employees/filter">Emp filter</a>
+        <a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/payrolls/filter">Pay filter</a>
+        
+        </nav>
+    </div>
+</div>

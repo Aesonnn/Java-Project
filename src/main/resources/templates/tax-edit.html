@@ -1,0 +1,152 @@
+<!-- <!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Taxes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<header th:insert="~{blocks/header :: header}"></header>
+    <div class="container mt-5 mb-5">
+        <h1>Editing tax</h1>
+        <form method="post" onsubmit="return validateForm()">
+            <div class="error-message" th:if="${percentRateError}" th:text="${percentRateError}"></div> 
+            <input type="number" th:value="${tax.percentRate}" name="percentRate" placeholder="Percent rate" class="form-control"><br>
+            <div class="error-message" th:if="${taxNameError}" th:text="${taxNameError}"></div> 
+            <input type="text" th:value="${tax.taxName}" name="taxName" placeholder="Name" class="form-control"><br>
+            <input type="text" th:value="${tax.description}" name="description" placeholder="Description" class="form-control"><br>
+            <button type="submit" class="btn btn-success">Save</button>
+        </form>      
+    </div>
+
+<div th:insert="~{blocks/footer :: footer}"></div>
+
+<script>
+    function validateForm() {
+        var prc = document.forms[0].percentRate.value;
+        
+        if (prc === "") {
+            alert("Percent rate is required");
+            return false;
+        }
+        
+        if (prc < 0 || prc > 100) {
+            alert("Percent rate must be between 0 and 100");
+            return false;
+        }
+    }
+</script>
+
+</body>
+</html> -->
+
+<!-- percentRate
+description -->
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" class="dark">
+<head>
+    <title>Add Tax</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/webjars/jquery/3.6.3/jquery.min.js"></script>
+</head> 
+<body class="bg-gray-900 text-gray-200 min-h-screen"> 
+  <header th:insert="~{blocks/newheader :: header}"></header>
+  <div class="bg-gray-900 text-gray-200 h-screen flex items-center justify-center">
+    <div class="w-full max-w-lg bg-gray-800 rounded-lg shadow-md p-8"> 
+        <h2 class="text-2xl font-bold text-gray-100 mb-6">Add Tax</h2>
+
+        <form class="flex flex-col" method="post">
+            <div class="error-message" th:if="${percentRateError}" th:text="${percentRateError}"></div> 
+            <input
+                type="number"
+                class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition ease-in-out duration-150 w-full"
+                placeholder="Percent rate *"
+                th:value="${tax.percentRate}"
+                name="percentRate"
+            />
+            <div class="error-message" th:if="${taxNameError}" th:text="${taxNameError}"></div> 
+            <input
+                type="text" 
+                class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition ease-in-out duration-150 w-full"
+                placeholder="Tax name *"
+                th:value="${tax.taxName}"
+                name="taxName"
+            />
+            <input
+                type="text"
+                class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition ease-in-out duration-150 w-full"
+                placeholder="Description"
+                th:value="${tax.description}"
+                name="description"
+            />
+            <button
+                type="submit"
+                class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
+            >
+                Save
+            </button>
+        </form>
+    </div>
+  </div>
+</body>
+</html>
+
+  
+<!-- <header th:insert="~{blocks/newheader :: header}"></header>
+      <div class="container mt-5 mb-5">
+        <h1>Adding employee</h1>
+        <form action="/employees/add" method="post">
+            <div class="error-message" th:if="${nameError}" th:text="${nameError}"></div> 
+            <input type="text" name="fname" placeholder="First name" class="form-control"><br>
+            <div class="error-message" th:if="${nameError}" th:text="${nameError}"></div> 
+
+            <input type="text" name="lname" placeholder="Last name" class="form-control"><br>
+            <input type="date" name="dob" placeholder="Date of birth" class="form-control"><br>
+            <input type="text" name="email" placeholder="Email" class="form-control"><br>
+
+            <div class="error-message" th:if="${departmentError}" th:text="${departmentError}"></div>
+            <input type="number" name="depid" placeholder="Department id" class="form-control"><br>
+            <div class="error-message" th:if="${positionError}" th:text="${positionError}"></div>
+            <input type="number" name="posid" placeholder="Position id" class="form-control"><br>
+            <button type="submit" class="btn btn-success">Add</button>
+        </form>      
+      </div>
+<div th:insert="~{blocks/footer :: footer}"></div> -->
+
+<script>
+    const form = document.querySelector('form');
+    const percentRateInput = document.querySelector('input[name="percentRate"]');
+    const taxNameInput = document.querySelector('input[name="taxName"]');
+    const descriptionInput = document.querySelector('input[name="description"]');
+
+    form.addEventListener('submit', function(event) {
+        if (percentRateInput.value === '') {
+            alert('Percent rate is required');
+            event.preventDefault(); // Prevent form submission if percent rate is empty
+        } else {
+            const percentRate = parseFloat(percentRateInput.value);
+            if (percentRate <= 0 || percentRate >= 100) {
+                alert('Percent rate must be between 0 and 100');
+                event.preventDefault(); // Prevent form submission if percent rate is invalid
+            }
+        }
+
+        if (taxNameInput.value.length > 150) {
+            alert('Tax name must not exceed 150 characters');
+            event.preventDefault(); // Prevent form submission if tax name is too long
+        }
+
+        if (descriptionInput.value.length > 150) {
+            alert('Description must not exceed 150 characters');
+            event.preventDefault(); // Prevent form submission if description is too long
+        }
+    });
+</script>
+
+
+</body>
+</html>

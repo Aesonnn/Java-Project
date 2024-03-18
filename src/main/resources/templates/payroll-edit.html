@@ -1,0 +1,303 @@
+<!-- <!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Payrolls</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<div class="container mt-5">
+    <form method="post">
+
+        <div class="form-group">
+            <label for="comments">Comments:</label>
+            <input type="text" class="form-control" id="comments" name="comments" th:value="${payroll.comments}">
+
+        <div class="error-message" th:if="${employeeError}" th:text="${employeeError}"></div>
+            <label for="employeeId">Employee ID:</label>
+            <input type="number" class="form-control" id="employeeId" name="employeeId" th:value="${payroll.employee.id}">
+
+        <h2>Applied Taxes</h2>
+        <p>Please select them again if you want to keep them!</p>
+        <div th:each="pt : ${payrollTaxes}">
+            <span th:text="${pt.tax.id}"></span> - 
+            <span th:text="${pt.tax.taxName}"></span> 
+            <span th:text="${pt.tax.percentRate} + '%' "></span> - 
+            <span th:text="${pt.tax.description}"></span> <br> 
+        </div>
+        <label for="taxes">Select Taxes:</label>
+        <div id="taxes"> 
+            </div>
+
+
+        <label for="grossPay">Gross Pay:</label>
+        <input type="number" step="0.01" class="form-control" id="grossPay" name="grossPay" th:value="${payroll.grossPay}">
+
+
+        <label for="netPay">Net Pay:</label>
+        <div id="netPay"></div> 
+
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+
+</body> -->
+
+<!-- <!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Payrolls</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<header th:insert="~{blocks/header :: header}"></header>
+    
+<div class="container mt-5">
+    <h1>Add New Payroll</h1>
+
+    <form method="post" action="/payrolls/add">
+
+        <div class="form-group">
+            <label for="comments">Comments:</label>
+            <input type="text" class="form-control" id="comments" name="comments">
+        </div>
+
+        <div class="error-message" th:if="${employeeError}" th:text="${employeeError}"></div>
+        <div class="form-group">
+            <label for="employeeId">Employee ID:</label>
+            <input type="number" class="form-control" id="employeeId" name="employeeId" required>
+        </div>
+          
+        <div class="form-group">
+            <label for="taxes">Select Taxes:</label>
+            <div id="taxes"> 
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label for="grossPay">Gross Pay:</label>
+            <input type="number" step="0.01" class="form-control" id="grossPay" name="grossPay" required>
+        </div>
+
+        <div class="form-group">
+            <label for="netPay">Net Pay:</label>
+            <div id="netPay"></div> 
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Add Payroll</button>
+    </form>
+</div>
+
+<script>
+
+fetch('/taxes/list') // Assuming a simple endpoint to get all taxes
+    .then(response => response.json())
+    .then(taxes => {
+        const taxesContainer = document.getElementById('taxes');
+
+        // Populate tax checkboxes
+        taxes.forEach(tax => {
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.name = 'taxIds';
+            checkbox.value = tax.id;
+            checkbox.id = tax.id; // Set checkbox ID for targeting
+
+            const label = document.createElement('label');
+            label.htmlFor = tax.id; 
+            label.appendChild(document.createTextNode(`${tax.taxName} (${tax.percentRate}%)`)); 
+
+            taxesContainer.appendChild(checkbox);
+            taxesContainer.appendChild(label);
+            taxesContainer.appendChild(document.createElement('br'));
+        }); 
+
+        // Net pay calculation logic  
+        const grossPayInput = document.getElementById('grossPay');
+        const netPayDisplay = document.getElementById('netPay');
+
+        function calculateNetPay() {
+            const grossPay = parseFloat(grossPayInput.value) || 0;
+            let netPay = grossPay;
+
+            taxes.forEach(tax => {
+                const checkbox = document.getElementById(tax.id);
+                if (checkbox.checked) {
+                    netPay -= grossPay * tax.percentRate / 100;
+                }
+            });
+
+            netPayDisplay.textContent = netPay.toFixed(2);
+        }
+
+        // Event listeners for recalculation
+        grossPayInput.addEventListener('input', calculateNetPay);
+        taxes.forEach(tax => {
+            document.getElementById(tax.id).addEventListener('change', calculateNetPay);
+        });
+
+        // Perform an initial calculation (in case of pre-existing values)
+        calculateNetPay(); 
+    });
+
+
+</script>
+
+
+
+<footer th:insert="~{blocks/footer :: footer}"></footer>
+
+</body> -->
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" class="dark">
+<head>
+    <title>Edit Payroll</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/webjars/jquery/3.6.3/jquery.min.js"></script>
+</head> 
+<body class="bg-gray-900 text-gray-200 min-h-screen"> 
+  <header th:insert="~{blocks/newheader :: header}"></header>
+  <div class="bg-gray-900 text-gray-200 h-screen flex items-center justify-center">
+    <div class="w-full max-w-lg bg-gray-800 rounded-lg shadow-md p-8"> 
+        <h2 class="text-2xl font-bold text-gray-100 mb-6">Edit Payroll</h2>
+
+        <form class="flex flex-col" method="post" onsubmit="return validateForm()">
+            <input
+                type="text"
+                class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition ease-in-out duration-150 w-full"
+                placeholder="Comments"
+                name="comments"
+                th:value="${payroll.comments}"
+            />
+            <div class="error-message" th:if="${employeeError}" th:text="${employeeError}"></div>
+            <input
+                type="number" 
+                class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition ease-in-out duration-150 w-full"
+                placeholder="Employee ID *"
+                name="employeeId"
+                th:value="${payroll.employee.id}"
+            />
+
+            <h2><span style="color: orange;">Applied Taxes:</span></h2>
+            <p><span style="color: orange;">Please select them again if you want to keep them!</span></p>
+            <div th:each="pt : ${payrollTaxes}">
+                <span th:text="${pt.tax.id}"></span> - 
+                <span th:text="${pt.tax.taxName}"></span> 
+                <span th:text="${pt.tax.percentRate} + '%' "></span>
+                <span th:text="${pt.tax.description}"></span> <br> 
+            </div>
+
+            <div class="mt-4">
+                <label for="taxes" class="text-gray-100 block mb-2">Select Taxes:</label>
+                <div id="taxes" class="bg-gray-700 text-gray-200 rounded-md p-4" style="word-wrap: break-word;"> 
+                  <div class="grid grid-cols-2 gap-4"> </div>
+                </div>
+              </div>              
+
+            <div>
+                <label for="grossPay">Gross Pay:</label>
+                <input type="number" step="0.01" 
+                class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition ease-in-out duration-150 w-full"
+                id="grossPay" name="grossPay" th:value="${payroll.grossPay}" required>
+            </div>
+
+            <div>
+                <label for="netPay">Net Pay:</label>
+                <div id="netPay"></div> 
+            </div>
+    
+
+            <button
+                type="submit"
+                class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
+            >
+                Save
+            </button>
+        </form>
+    </div>
+  </div>
+<script>
+
+fetch('/taxes/list') // Assuming a simple endpoint to get all taxes
+    .then(response => response.json())
+    .then(taxes => {
+        const taxesContainer = document.getElementById('taxes');
+        taxes.forEach(tax => {
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.name = 'taxIds';
+            checkbox.value = tax.id;
+            checkbox.id = tax.id; 
+            checkbox.classList.add('appearance-none', 'rounded', 'h-4', 'w-4', 
+            'border', 'border-gray-300', 'bg-gray-700','checked:bg-blue-500', 
+            'checked:border-transparent', 'mr-2'); // Tailwind classes for checkboxes
+
+            const label = document.createElement('label');
+            label.htmlFor = tax.id; 
+            label.appendChild(document.createTextNode(`${tax.taxName} (${tax.percentRate}%)`)); 
+
+            const div = document.createElement('div');
+            div.appendChild(checkbox);
+            div.appendChild(label);
+
+            taxesContainer.appendChild(div);
+            taxesContainer.appendChild(document.createElement('br'));
+        }); 
+
+        // Net pay calculation logic  
+        const grossPayInput = document.getElementById('grossPay');
+        const netPayDisplay = document.getElementById('netPay');
+
+        function calculateNetPay() {
+            const grossPay = parseFloat(grossPayInput.value) || 0;
+            let netPay = grossPay;
+
+            taxes.forEach(tax => {
+                const checkbox = document.getElementById(tax.id);
+                if (checkbox.checked) {
+                    netPay -= grossPay * tax.percentRate / 100;
+                }
+            });
+
+            netPayDisplay.textContent = netPay.toFixed(2);
+        }
+
+        // Event listeners for recalculation
+        grossPayInput.addEventListener('input', calculateNetPay);
+        taxes.forEach(tax => {
+            document.getElementById(tax.id).addEventListener('change', calculateNetPay);
+        });
+
+        // Perform an initial calculation (in case of pre-existing values)
+        calculateNetPay(); 
+    });
+
+    function validateForm() {
+        var comments = document.forms[0]["comments"].value;
+        var employeeId = document.forms[0]["employeeId"].value;
+        var grossPay = document.forms[0]["grossPay"].value;
+
+        if (comments.length > 150 || employeeId.length > 150) {
+            alert("Text fields values must not be longer than 150 characters.");
+            return false;
+        }
+
+        if (grossPay < 0) {
+            alert("Gross pay must not be less than zero.");
+            return false;
+        }
+
+        return true;
+    }
+
+
+</script>
+</body>
+</html>

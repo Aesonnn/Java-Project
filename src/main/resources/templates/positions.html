@@ -1,0 +1,117 @@
+<!-- <!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Positions</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<header th:insert="~{blocks/header :: header}"></header>
+<a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/positions/add">Create position</a>
+
+<div class="container mt-5">
+    <h1>Positions list</h1>
+    <form th:action="@{/positions}" method="get">
+        <div class="row mb-3">
+            <div class="col-sm-3">
+                <label for="sortField" class="form-label">Sort by:</label>
+                <select class="form-select" id="sortField" name="sortField">
+                    <option value="id">ID</option>
+                    <option value="title">Title</option>
+                    <option value="salaryMax">Maximum salary</option>
+                    <option value="salaryMin">Minimum salary</option>
+                    <option value="empnum">Assigned employees</option>
+                </select>
+            </div>
+            <div class="col-sm-6">
+                <button type="submit" class="btn btn-primary">Sort</button>
+            </div>
+        </div>
+    </form>
+    <div th:each="pos : ${positions}" class="alert alert-info mt-2">
+      <h3 th:text="${pos.id}"/>
+      <h4 th:text="${pos.title}"/>
+      <p th:text="${pos.description}"/>
+      <p th:text="${pos.salaryMin}"/>
+      <p th:text="${pos.salaryMax}"/>
+      <p>Employees: <span th:text="${pos.employees.size()}"></span></p> 
+      <a th:href="'/positions/' + ${pos.id}" class="btn btn-primary">Details</a>
+    </div>   
+</div>
+<div th:insert="~{blocks/footer :: footer}"></div>
+</body>
+</html> -->
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" class="dark">
+<head>
+    <title>Positions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen">
+    <header th:insert="~{blocks/newheader :: header}"></header>
+
+    <div class="container mx-auto mt-8 px-4">
+        <h1 class="text-2xl font-bold mb-4">Positions List</h1>
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+            <form th:action="@{/positions}" method="get">
+                <div class="mb-3 sm:mb-0 sm:mr-4 rounded-lg bg-gray-800 shadow-sm px-4 py-3 flex items-center">
+                    <label for="sortField" class="form-label text-white mr-1" style="width: 120px;">Sort by:</label>
+                    <select class="form-select bg-gray-800 text-white border-gray-700 focus:ring-indigo-500 focus:border-indigo-500 w-full" 
+                            id="sortField" name="sortField">
+                            <option value="id">ID</option>
+                            <option value="title">Title</option>
+                            <option value="salaryMax">Maximum salary</option>
+                            <option value="salaryMin">Minimum salary</option>
+                            <option value="empnum">Assigned employees</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary text-white font-bold bg-yellow-500 rounded-lg ml-4 px-4 py-2" >Sort</button>
+                </div>
+            </form>
+        
+                <a class="bg-violet-500 hover:bg-violet-600 text-white font-medium py-3 px-5 rounded-md mb-2" href="/positions/add">Add New Position</a>
+        </div>
+
+        <div class="table-container shadow-lg rounded-lg overflow-x-auto">
+            <table class="table table-striped table-bordered table-dark w-full">
+                <thead>
+                    <tr>
+                        <th th:text="ID" class="px-4 py-2 text-center"></th> 
+                        <th class="px-4 py-2 text-center">Title</th>
+                        <th class="px-4 py-2 text-center">Min salary</th>
+                        <th class="px-4 py-2 text-center">Max salary</th>
+                        <th class="px-4 py-2 text-center">Employees</th>
+                        <th th:text="Actions" class="px-4 py-2 text-center"></th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr th:each="pos : ${positions}">
+                        <td th:text="${pos.id}" class="px-4 py-2 text-center"></td>
+                        <td style="word-break: break-word; white-space: normal;" class="px-4 py-2 text-center"> 
+                            <div class="overflow-x-auto mx-auto" style="max-width: 130px;">
+                                <span th:text="${pos.title}" ></span>
+                            </div> 
+                        </td> 
+                        <td th:text="${pos.salaryMin}" class="px-4 py-2 text-center"></td> 
+                        <td th:text="${pos.salaryMax}" class="px-4 py-2 text-center"></td> 
+                        <!-- <td class="px-4 py-2 text-center">
+                            <div class="overflow-x-auto mx-auto" style="max-width: 200px;">
+                            </div>
+                        </td> -->
+                        <td th:text="${pos.employees.size()}" class="px-4 py-2 text-center"></td>
+                        <td class="px-4 py-2 text-center">
+                            
+                                <a th:href="'/positions/' + ${pos.id}" class="bg-violet-500 hover:bg-violet-600 text-white font-medium py-2 px-4 rounded-md mb-2">Details</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+

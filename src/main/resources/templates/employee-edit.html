@@ -1,0 +1,146 @@
+<!-- <!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Employees</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="/webjars/jquery/3.6.3/jquery.min.js"></script>
+</head>
+<body> -->
+<!-- <header th:insert="~{blocks/header :: header}"></header>
+      <div class="container mt-5 mb-5">
+        <h1>Editing employee</h1>
+        <div th:each="emp : ${employee}">   
+            <form method="post">
+                <div class="error-message" th:if="${nameError}" th:text="${nameError}"></div> 
+                <input type="text" th:value="${emp.firstName}" name="fname" placeholder="First name" class="form-control"><br>
+                <div class="error-message" th:if="${nameError}" th:text="${nameError}"></div> 
+    
+                <input type="text" th:value="${emp.lastName}" name="lname" placeholder="Last name" class="form-control"><br>
+                <input type="date" th:value="${emp.dob}" name="dob" placeholder="Date of birth" class="form-control"><br>
+                <input type="text" name="email" placeholder="Email" class="form-control"><br>
+                     Commented: ${emp.department?.title} ?: 'Not Assigned' 
+                <div class="error-message" th:if="${departmentError}" th:text="${departmentError}"></div>
+                <input type="number" th:value="${emp.department != null} ? ${emp.department.id} : null" name="depid" placeholder="Department id" class="form-control"><br>
+                <div class="error-message" th:if="${positionError}" th:text="${positionError}"></div>
+                <input type="number" th:value="${emp.position != null} ? ${emp.position.id} : null" name="posid" placeholder="Position id" class="form-control"><br>
+                <button type="submit" class="btn btn-success">Save</button>
+            </form>
+        </div> 
+      </div>
+</body>
+</html> -->
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" class="dark">
+<head>
+    <title>Add Employee</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/webjars/jquery/3.6.3/jquery.min.js"></script>
+</head> 
+<body class="bg-gray-900 text-gray-200 min-h-screen"> 
+  <header th:insert="~{blocks/newheader :: header}"></header>
+  <div class="bg-gray-900 text-gray-200 h-screen flex items-center justify-center">
+    <div class="w-full max-w-lg bg-gray-800 rounded-lg shadow-md p-8" th:each="emp : ${employee}"> 
+        <h2 class="text-2xl font-bold text-gray-100 mb-6">Edit Employee</h2>
+
+        <form class="flex flex-col" method="post">
+            <div class="error-message" th:if="${nameError}" th:text="${nameError}" style="color: rgb(255, 102, 0);"></div> 
+            <input
+                type="text"
+                class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition ease-in-out duration-150 w-full"
+                placeholder="First Name *"
+                th:value="${emp.firstName}"
+                name="fname"
+            />
+            <div class="error-message" th:if="${nameError}" th:text="${nameError}" style="color: rgb(255, 102, 0);"></div> 
+            <input
+                type="text" 
+                class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition ease-in-out duration-150 w-full"
+                placeholder="Last Name *"
+                th:value="${emp.lastName}" 
+                name="lname"
+            />
+            <input
+                type="date"
+                class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition ease-in-out duration-150 w-full"
+                placeholder="Date of birth *"
+                th:value="${emp.dob}"
+                name="dob"
+            />
+            <input
+                type="text"
+                class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition ease-in-out duration-150 w-full"
+                placeholder="Email"
+                th:value="${emp.email}"
+                name="email"
+            />
+            <div class="error-message" th:if="${departmentError}" th:text="${departmentError}" style="color: rgb(255, 102, 0);"></div>
+             <input
+                type="number"
+                class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition ease-in-out duration-150 w-full"
+                placeholder="Department ID"
+                th:value="${emp.department != null} ? ${emp.department.id} : null"
+                name="depid"
+            />
+            <div class="error-message" th:if="${positionError}" th:text="${positionError}" style="color: rgb(255, 102, 0);"></div>
+            <input
+                type="numebr"
+                class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 mb-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition ease-in-out duration-150 w-full"
+                placeholder="Position ID"
+                th:value="${emp.position != null} ? ${emp.position.id} : null"
+                name="posid"
+            />
+
+            <button
+                type="submit"
+                class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-4 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
+            >
+                Save
+            </button>
+        </form>
+    </div>
+  </div>
+  <script>
+    const form = document.querySelector('form'); // Assuming your form has a unique identifier
+    const nameInput = document.querySelector('input[name="fname"]');
+    const surnameInput = document.querySelector('input[name="lname"]');
+    const dateInput = document.querySelector('input[name="dob"]'); 
+    const emailInput = document.querySelector('input[name="email"]');
+  
+  
+    form.addEventListener('submit', function(event) {
+          // Date of birth validation
+      const selectedDate = new Date(dateInput.value);
+      const currentYear = new Date().getFullYear();
+  
+      if (selectedDate.getFullYear() > currentYear) {
+        alert('Date of birth cannot be in the future.');
+        event.preventDefault();
+      }
+      
+      if (nameInput.value.length > 30) {
+        alert('Name cannot be longer than 30 characters.'); 
+        event.preventDefault(); // Prevent form submission if name is too long
+      }
+      if (surnameInput.value.length > 30) {
+        alert('Surname cannot be longer than 30 characters.'); 
+        event.preventDefault(); // Prevent form submission if surname is too long
+      }
+      if (dateInput.value === '') {
+        alert('Please select a date of birth.'); 
+        event.preventDefault(); // Prevent form submission if date is empty
+      }
+  
+      if (emailInput.value.length > 30) {
+        alert('Email cannot be longer than 30 characters.'); 
+        event.preventDefault(); // Prevent form submission if email is too long
+      }
+  
+    });
+  
+  </script>
+</body>
+</html>
