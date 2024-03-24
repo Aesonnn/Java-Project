@@ -139,7 +139,8 @@ public class PayrollController {
 
     @GetMapping("/payrolls/add")
     public String payroll_add(Model model) {
-        return "payrolls-add";
+        model.addAttribute("taxes", taxRepository.findAll());
+        return "payrolls-add-test";
     }
 
 
