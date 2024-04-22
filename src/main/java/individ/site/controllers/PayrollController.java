@@ -9,6 +9,7 @@ import java.util.List;
 
 // import individ.site.models.Department;
 // import individ.site.models.Employee;
+import java.sql.Date;
 import individ.site.models.Payroll;
 import individ.site.models.PayrollTax;
 import individ.site.models.Tax;
@@ -139,8 +140,7 @@ public class PayrollController {
 
     @GetMapping("/payrolls/add")
     public String payroll_add(Model model) {
-        model.addAttribute("taxes", taxRepository.findAll());
-        return "payrolls-add-test";
+        return "payrolls-add";
     }
 
 
@@ -195,6 +195,11 @@ public class PayrollController {
                 });
             }
         }
+
+        java.util.Date now = new java.util.Date();
+        Date sqlDate = new java.sql.Date(now.getTime());
+
+        payroll.setIssueDate(sqlDate);
 
         payrollRepository.save(payroll);
 

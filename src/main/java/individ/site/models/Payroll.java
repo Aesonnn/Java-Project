@@ -4,6 +4,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
+import java.sql.Date;
 import java.util.ArrayList;
 import jakarta.persistence.OneToMany;
 
@@ -35,6 +36,9 @@ public class Payroll {
 
     @Column(name = "net_pay", nullable = true)
     private Double netPay;
+
+    @Column(name = "Issue date", nullable = true)
+    private Date issueDate;
 
     @OneToMany(mappedBy = "payroll")
     private List<PayrollTax> paytax = new ArrayList<>();
@@ -114,6 +118,14 @@ public class Payroll {
 
     public void setNetPay(Double netPay) {
         this.netPay = netPay;
+    }
+
+    public Date getIssueDate() {
+        return issueDate;
+    }
+
+    public void setIssueDate(Date issueDate) {
+        this.issueDate = issueDate;
     }
 
     public List<PayrollTax> getPaytax() {

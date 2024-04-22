@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 public class Tax implements Deduction{
@@ -45,8 +47,18 @@ public class Tax implements Deduction{
 
     @Override
     public void deduct(Payroll payroll) {
-        double deductionAmount = payroll.getGrossPay() * this.percentRate / 100.0;
-        payroll.setNetPay(payroll.getNetPay() - deductionAmount);
+        // double deductionAmount = payroll.getGrossPay() * this.percentRate / 100.0;
+        BigDecimal grossPay = BigDecimal.valueOf(payroll.getGrossPay());
+
+        BigDecimal percentRate = BigDecimal.valueOf(this.percentRate);
+
+        BigDecimal deductionAmount = grossPay.multiply(percentRate)
+                                            .divide(BigDecimal.valueOf(100.0))
+                                            .setScale(2, RoundingMode.HALF_UP);
+
+        double finalDeductionAmount = deductionAmount.doubleValue();
+        payroll.setNetPay(payroll.getNetPay() - finalDeductionAmount);
+        // payroll.setNetPay(payroll.getNetPay() - deductionAmount);
     }
 
     public Tax() {

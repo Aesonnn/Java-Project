@@ -55,6 +55,7 @@
       <p class="mb-4" th:text="'Employee: ' + ${pr.employee?.firstName} ?: 'Not Assigned'"></p>
       <p class="mb-4" th:text="'Gross pay: ' + ${pr.grossPay}"></p>
       <p class="mb-4" th:text="'Net pay: ' + ${pr.netPay}"></p>
+      <p class="mb-2">Issue date: <span th:text="${#dates.format(pr.issueDate, 'dd-MM-yyyy')}"></span></p>
       <h4>Taxes:</h4>
       <ul>
           <li th:each="tax : ${taxes}">
