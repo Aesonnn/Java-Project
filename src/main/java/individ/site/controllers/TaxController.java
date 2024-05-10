@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import individ.site.models.User;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class TaxController {
     
@@ -25,7 +28,11 @@ public class TaxController {
     private individ.site.repo.taxRepository taxRepository;
 
     @GetMapping("/taxes")
-    public String taxes_main(Model model) {
+    public String taxes_main(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         Iterable<Tax> taxes = taxRepository.findAll();
 
         model.addAttribute("taxes", taxes);
@@ -40,7 +47,11 @@ public class TaxController {
     }
 
     @GetMapping("/taxes/add")
-    public String taxes_add(Model model) {
+    public String taxes_add(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         return "taxes-add";
     }
 
@@ -68,7 +79,11 @@ public class TaxController {
     }
 
     @GetMapping("/tax/{id}")
-    public String taxes_details(@PathVariable(value = "id") long taxId, Model model) {
+    public String taxes_details(@PathVariable(value = "id") long taxId, Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         try {
             if (taxRepository.existsById(taxId)) {
                 Tax tax = taxRepository.findById(taxId).orElseThrow();
@@ -83,7 +98,11 @@ public class TaxController {
     }
 
     @GetMapping("/tax/{id}/edit")
-    public String taxes_edit(@PathVariable(value = "id") long taxId, Model model) {
+    public String taxes_edit(@PathVariable(value = "id") long taxId, Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         try {
             if (taxRepository.existsById(taxId)) {
                 Tax tax = taxRepository.findById(taxId).orElseThrow();

@@ -2,6 +2,7 @@ package individ.site.controllers;
 
 import org.springframework.stereotype.Controller;
 import individ.site.repo.positionRepository;
+import jakarta.servlet.http.HttpSession;
 import individ.site.repo.employeeRepository;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.stream.StreamSupport;
 
 import individ.site.models.Employee;
 import individ.site.models.Position;
+import individ.site.models.User;
 
 
 
@@ -33,7 +35,11 @@ public class PositionController {
     private employeeRepository employeeRepository;
 
     @GetMapping("/positions")
-    public String position_main(Model model, @RequestParam(required = false) String sortField) {
+    public String position_main(Model model, @RequestParam(required = false) String sortField, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         Iterable<Position> positions;
         if (sortField != null) {
             switch (sortField) {
@@ -68,7 +74,11 @@ public class PositionController {
     }
 
     @GetMapping("/positions/summary")
-    public String positions_summary(Model model) {
+    public String positions_summary(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         return "positions-summary";
     }
     @PostMapping("/positions/summary")
@@ -83,8 +93,9 @@ public class PositionController {
                                         .filter(p -> p.getEmployees().size() == employeeCount)
                                         .collect(Collectors.toList());
 
+        model.addAttribute("positionRepositorySize", positionRepository.count());
         model.addAttribute("filteredPositions", filteredPositions);
-        model.addAttribute("employeeCount", employeeCount); // To display on the page
+        model.addAttribute("employeeCount", employeeCount);
         return "positions-summary"; 
     }
 
@@ -109,7 +120,11 @@ public class PositionController {
     
 
     @GetMapping("/positions/add")
-    public String positions_add(Model model) {
+    public String positions_add(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         return "positions-add";
     }
 
@@ -129,7 +144,11 @@ public class PositionController {
     }
 
     @GetMapping("/positions/{id}")
-    public String position_details(@PathVariable(value = "id") long posId, Model model) {
+    public String position_details(@PathVariable(value = "id") long posId, Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         try {
             if (positionRepository.existsById(posId)) {
                 Optional<Position> position = positionRepository.findById(posId);
@@ -149,7 +168,11 @@ public class PositionController {
     }
 
     @GetMapping("/position/{id}/edit")
-    public String position_edit(@PathVariable(value = "id") long posId, Model model) {
+    public String position_edit(@PathVariable(value = "id") long posId, Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         try {
             if (positionRepository.existsById(posId)) {
                 Position position = positionRepository.findById(posId).orElseThrow();
@@ -202,7 +225,11 @@ public class PositionController {
     }
 
     @GetMapping("/positions/filter")
-    public String filterPositions(Model model) {
+    public String filterPositions(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         return "position-filter";
     }
     

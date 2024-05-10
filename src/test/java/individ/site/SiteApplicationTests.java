@@ -97,7 +97,7 @@ class SiteApplicationTests {
         }).when(payrollRepository).save(any(Payroll.class)); 
 
         // Call the controller method
-        payrollController.payroll_post_add(null, Collections.singletonList(1L), employee.getId(), grossPay, null);
+        payrollController.payroll_post_add("Testpayroll", Collections.singletonList(1L), employee.getId(), grossPay, null);
 
         // Assertions
 		// We keep the size as 2 since adding a payroll requires saving it twice

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import individ.site.models.Department;
 import individ.site.models.Employee;
+import individ.site.models.User;
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -29,14 +31,22 @@ public class DepartmentController {
     private employeeRepository employeeRepository;
 
     @GetMapping("/departments")
-    public String department_main(Model model) {
+    public String department_main(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         Iterable<Department> departments = departmentRepository.findAll();
         model.addAttribute("departments", departments);
         return "departments";
     }
 
     @GetMapping("/departments/add")
-    public String department_add(Model model) {
+    public String department_add(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         return "departments-add";
     }
 
@@ -50,7 +60,11 @@ public class DepartmentController {
     @PostMapping("/departments/add")
     public String department_post_add(@RequestParam String title, 
                                     @RequestParam(required = false) String description, 
-                                    Model model) {
+                                    Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
 
         if (title.isBlank()) {
             model.addAttribute("titleError", "Title is required");
@@ -63,7 +77,11 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments/{id}")
-    public String department_details(@PathVariable(value = "id") long depId, Model model) {
+    public String department_details(@PathVariable(value = "id") long depId, Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         try {
             if (departmentRepository.existsById(depId)) {
                 Optional<Department> department = departmentRepository.findById(depId);
@@ -90,7 +108,11 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments/{id}/edit")
-    public String department_edit(@PathVariable(value = "id") long depId, Model model) {
+    public String department_edit(@PathVariable(value = "id") long depId, Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
 
         if (departmentRepository.existsById(depId)) {
             Department department = departmentRepository.findById(depId).orElseThrow();

@@ -13,9 +13,11 @@ import java.sql.Date;
 import individ.site.models.Payroll;
 import individ.site.models.PayrollTax;
 import individ.site.models.Tax;
+import individ.site.models.User;
 import individ.site.models.Employee;
 import individ.site.repo.payrollRepository;
 import individ.site.repo.taxRepository;
+import jakarta.servlet.http.HttpSession;
 import individ.site.repo.payrolltaxRepository;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,7 +54,11 @@ public class PayrollController {
 
 
     @GetMapping("/payrolls")
-    public String getAllPayrolls(Model model, @RequestParam(required = false) String sortField) {
+    public String getAllPayrolls(Model model, @RequestParam(required = false) String sortField, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         Iterable<Payroll> payrolls;
         if (sortField != null) {
             switch (sortField) {
@@ -109,7 +115,11 @@ public class PayrollController {
     }
 
     @GetMapping("/payroll/{id}")
-    public String payroll_details(@PathVariable(value = "id") long prId, Model model) {
+    public String payroll_details(@PathVariable(value = "id") long prId, Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         try {
             if (payrollRepository.existsById(prId)) {
                 Payroll payroll = payrollRepository.findById(prId).orElseThrow();
@@ -139,7 +149,11 @@ public class PayrollController {
     }
 
     @GetMapping("/payrolls/add")
-    public String payroll_add(Model model) {
+    public String payroll_add(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         return "payrolls-add";
     }
 
@@ -207,7 +221,11 @@ public class PayrollController {
     }
 
     @GetMapping("/payroll/{id}/edit")
-    public String payroll_get_edit(@PathVariable("id") Long id, Model model) {
+    public String payroll_get_edit(@PathVariable("id") Long id, Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         Optional<Payroll> optionalPayroll = payrollRepository.findById(id);
         if (optionalPayroll.isPresent()) {
             Payroll payroll = optionalPayroll.get();
@@ -217,12 +235,12 @@ public class PayrollController {
             model.addAttribute("payrollTaxes", payrollTaxes); 
             return "payroll-edit";
         } else {
-            return "redirect:/payrolls"; // Or a suitable error page
+            return "redirect:/payrolls"; 
         }
     }
     
     @Transactional
-    @PostMapping("/payroll/{id}/edit") // Modify existing post mapping for editing
+    @PostMapping("/payroll/{id}/edit") 
     public String payroll_post_edit(@PathVariable("id") Long id,
                                     @RequestParam String comments,
                                     @RequestParam(required = false) List<Long> taxIds,
@@ -297,8 +315,26 @@ public class PayrollController {
     }
 
     @GetMapping("/payrolls/filter")
-    public String filterEmployees(Model model) {
+    public String filterEmployees(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         return "payrolls-filter"; 
+    }
+
+
+    @GetMapping("/payrolls/filter-{id}")
+    public String payroll_employee(@PathVariable("id") Long id, Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
+        List<Payroll> filteredPayroll = payrollRepository.findByEmployeeId(id);
+
+        model.addAttribute("filteredPayrolls", filteredPayroll);
+        return "payrolls-filter"; 
+
     }
 
     @PostMapping("/payrolls/filter")
@@ -355,7 +391,11 @@ public class PayrollController {
     }
 
     @GetMapping("/payrolls/summary")
-    public String payroll_summary(Model model) {
+    public String payroll_summary(Model model, HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if(loggedInUser == null){
+            return "redirect:/login";
+        }
         return "payrolls-summary"; 
     }
 
@@ -371,6 +411,7 @@ public class PayrollController {
                                         .filter(p -> p.getPaytax().size() == taxCount)
                                         .collect(Collectors.toList());
 
+        model.addAttribute("payrollRepositorySize", payrollRepository.count());
         model.addAttribute("filteredPayrolls", filteredPayrolls); 
         model.addAttribute("taxCount", taxCount); 
         return "payrolls-summary"; // Name of your view file

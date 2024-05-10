@@ -157,10 +157,10 @@ public class EmployeeController {
         List<Employee> filteredEmployees = new ArrayList<>();
         switch (filterBy) {
             case "firstName":
-                filteredEmployees = employeeRepository.findByFirstNameContaining(keyword); // More flexible search
+                filteredEmployees = employeeRepository.findByFirstNameContaining(keyword);
                 break;
             case "lastName":
-                filteredEmployees = employeeRepository.findByLastNameContaining(keyword);  // More flexible search
+                filteredEmployees = employeeRepository.findByLastNameContaining(keyword); 
                 break;
             case "departmentId":
                 if (keyword != null) {

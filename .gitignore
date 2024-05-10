@@ -1,8 +1,11 @@
 HELP.md
 target/
+src\main\java\individ\site\MyUserDetails.java
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+.gitignore
+application.properties
 
 ### STS ###
 .apt_generated
@@ -31,3 +34,4 @@ build/
 
 ### VS Code ###
 .vscode/
+src/main/resources/application.properties

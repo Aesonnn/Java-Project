@@ -21,6 +21,6 @@ public class CustomErrorController implements ErrorController {
             }
         }
 
-        return "error"; // General error view
+        return "error"; 
     }
 }
