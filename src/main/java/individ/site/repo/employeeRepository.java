@@ -10,7 +10,7 @@ import individ.site.models.Employee;
 public interface employeeRepository extends CrudRepository<Employee, Long> {
     List<Employee> findByLastName(String lastName);
     List<Employee> findByFirstName(String firstName);
-    List<Employee> findAllByOrderByDepartment();
+    List<Employee> findAllByOrderByDepartmentDesc();
     List<Employee> findByDepartmentId(Long id);
     List<Employee> findAllByOrderByFirstName();
     List<Employee> findAllByDepartmentIsNotNullOrderByDepartment();

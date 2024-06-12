@@ -47,7 +47,7 @@
                         <td th:text="${payroll.id}" class="px-4 py-2 text-center"></td>
                         <td style="word-break: break-word; white-space: normal;" class="px-4 py-2 text-center"> 
                             <div class="overflow-x-auto mx-auto" style="max-width: 130px;">
-                                <span th:text="${payroll.employee.firstName} ?: 'Not Assigned'" ></span>
+                                <span th:text="${payroll.employee != null ? payroll.employee.firstName : 'Deleted Employee'}" ></span>
                             </div> 
                         </td> 
                         <td th:text="${payroll.netPay}" class="px-4 py-2 text-center"></td> 

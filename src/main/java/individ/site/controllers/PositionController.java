@@ -264,6 +264,10 @@ public class PositionController {
                 if (filterValue != null) {
                     try {
                         int numEmp = Integer.parseInt(filterValue);
+                        if (numEmp < 0) {
+                            model.addAttribute("keywordError", "Keyword must be a positive integer");
+                            return "position-filter";
+                        }
                         Iterable<Position> positions1 = positionRepository.findAll();
                         // List<Position> positionListEmp = new ArrayList<>();
                         for (Position position : positions1) {

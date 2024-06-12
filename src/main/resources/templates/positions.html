@@ -1,3 +1,49 @@
+<!-- <!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Positions</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<header th:insert="~{blocks/header :: header}"></header>
+<a class="me-3 py-2 link-body-emphasis text-decoration-none" href="/positions/add">Create position</a>
+
+<div class="container mt-5">
+    <h1>Positions list</h1>
+    <form th:action="@{/positions}" method="get">
+        <div class="row mb-3">
+            <div class="col-sm-3">
+                <label for="sortField" class="form-label">Sort by:</label>
+                <select class="form-select" id="sortField" name="sortField">
+                    <option value="id">ID</option>
+                    <option value="title">Title</option>
+                    <option value="salaryMax">Maximum salary</option>
+                    <option value="salaryMin">Minimum salary</option>
+                    <option value="empnum">Assigned employees</option>
+                </select>
+            </div>
+            <div class="col-sm-6">
+                <button type="submit" class="btn btn-primary">Sort</button>
+            </div>
+        </div>
+    </form>
+    <div th:each="pos : ${positions}" class="alert alert-info mt-2">
+      <h3 th:text="${pos.id}"/>
+      <h4 th:text="${pos.title}"/>
+      <p th:text="${pos.description}"/>
+      <p th:text="${pos.salaryMin}"/>
+      <p th:text="${pos.salaryMax}"/>
+      <p>Employees: <span th:text="${pos.employees.size()}"></span></p> 
+      <a th:href="'/positions/' + ${pos.id}" class="btn btn-primary">Details</a>
+    </div>   
+</div>
+<div th:insert="~{blocks/footer :: footer}"></div>
+</body>
+</html> -->
+
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" class="dark">
 <head>

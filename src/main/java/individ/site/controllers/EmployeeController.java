@@ -58,8 +58,7 @@ public class EmployeeController {
         if (sortField != null) {
             switch (sortField) {
                 case "departmentNumber":
-                     // Excluding employees without a department
-                    employees = employeeRepository.findAllByDepartmentIsNotNullOrderByDepartment();
+                    employees = employeeRepository.findAllByOrderByDepartmentDesc();
                     break;
                 case "firstName":
                     employees = employeeRepository.findAllByOrderByFirstName();
@@ -204,6 +203,10 @@ public class EmployeeController {
                 if (keyword != null) {
                     try {
                         int numPay = Integer.parseInt(keyword);
+                        if (numPay < 0) {
+                            model.addAttribute("keywordError", "Keyword must be a positive integer");
+                            return "employees-filter";
+                        }
                         Iterable<Employee> employees = employeeRepository.findAll();
                         for (Employee employee : employees) {
                             if (employee.getPayrolls().size() >= numPay) {

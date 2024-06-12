@@ -24,11 +24,11 @@ public class Employee extends Person {
 
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = true)
-    @OnDelete(action = OnDeleteAction.SET_NULL) 
+    @OnDelete(action = OnDeleteAction.SET_NULL) // investigate this
     private Department department;
 
     @ManyToOne
-    @OnDelete(action = OnDeleteAction.SET_NULL) 
+    @OnDelete(action = OnDeleteAction.SET_NULL) // investigate this
     @JoinColumn(name = "position_id", nullable = true)
     private Position position;
 

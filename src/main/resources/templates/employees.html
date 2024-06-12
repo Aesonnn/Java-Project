@@ -37,6 +37,7 @@
                         <th class="px-4 py-2 text-center">Department title</th>
                         <th class="px-4 py-2 text-center">Position title</th>
                         <th class="px-4 py-2 text-center">Name</th>
+                        <th class="px-4 py-2 text-center">Payrolls received</th>
                         <th th:text="Actions" class="px-4 py-2 text-center"></th>
                     </tr>
                 </thead>
@@ -46,12 +47,14 @@
                         <td th:text="${emp.id}" class="px-4 py-2 text-center"></td>
                         <td style="word-break: break-word; white-space: normal;" class="px-4 py-2 text-center"> 
                             <div class="overflow-x-auto mx-auto" style="max-width: 130px;">
-                                <span th:text="${emp.department?.title} ?: 'Not Assigned'"></span>
+                                <!-- <span th:text="${emp.department?.id} + ', ' + ${emp.department?.title} ?: 'Not Assigned'"></span> -->
+                                <span th:text="${#strings.isEmpty(emp.department) ? 'Not Assigned' : emp.department.id + ', ' + emp.department.title}"></span>
+
                             </div> 
                         </td>
                         <td style="word-break: break-word; white-space: normal;" class="px-4 py-2 text-center"> 
                             <div class="overflow-x-auto mx-auto" style="max-width: 130px;">
-                                <span th:text="${emp.position?.title} ?: 'Not Assigned'"></span>
+                                <span th:text="${#strings.isEmpty(emp.position) ? 'Not Assigned' : emp.position.id + ', ' + emp.position.title}"></span>
                             </div> 
                         </td>
                         <td style="word-break: break-word; white-space: normal;" class="px-4 py-2 text-center"> 
@@ -59,6 +62,7 @@
                                 <span th:text="${emp.firstName + ' ' + emp.lastName}"></span>
                             </div> 
                         </td>
+                        <td th:text="${emp.payrolls.size()}" class="px-4 py-2 text-center"></td>
                         <td class="px-4 py-2 text-center">
                             
                                 <a th:href="'/employees/' + ${emp.id}" class="bg-violet-500 hover:bg-violet-600 text-white font-medium py-2 px-4 rounded-md mb-2">Details</a>
