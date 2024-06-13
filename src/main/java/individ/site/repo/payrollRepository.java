@@ -2,7 +2,6 @@ package individ.site.repo;
 
 import java.util.List;
 
-// import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 

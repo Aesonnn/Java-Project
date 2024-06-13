@@ -20,19 +20,11 @@ public class User extends Person {
 
     @Column(nullable = false)
     private String password;
-    
-    // private boolean active;
-
-    // private String roles;
 
     public User() {
         // Default constructor
     }
 
-    // public User(String username, String password) {
-    //     this.username = username;
-    //     this.password = password;
-    // }
 
     public User(String username, String password, String firstName, String lastName) {
         super(firstName, lastName);
@@ -66,20 +58,4 @@ public class User extends Person {
         this.password = password;
     }
 
-    // public boolean isActive() {
-    //     return active;
-    // }
-
-    // public void setActive(boolean active) {
-    //     this.active = active;
-    // }
-
-    // public String getRoles() {
-    //     return roles;
-    // }
-
-    // public void setRoles(String roles) {
-    //     this.roles = roles;
-    // }
-    
 }

@@ -1,73 +1,3 @@
-<!-- <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Filter Payrolls</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-    <header th:insert="~{blocks/header :: header}"></header>
-
-    <div class="container mt-5">
-
-        <div class="container mt-5">
-            <h1>Filter Payrolls</h1>
-    
-            <form method="post" action="/payrolls/filter">
-                <div class="form-group">
-                    <label for="filterBy">Filter By:</label>
-                    <select class="form-control" id="filterBy" name="filterBy">
-                        <option value="id">Payroll ID</option>
-                        <option value="employeeId">Employee ID</option>
-                        <option value="netPay">Net Pay</option>
-                        <option value="numTax"> > Number of taxes</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="filterValue">Value:</label>
-                    <div class="error-message" th:if="${error}" th:text="${error}"></div>
-                    <input type="number" step="0.01" class="form-control" id="filterValue" name="filterValue">
-                </div>
-                <button type="submit" class="btn btn-primary">Filter</button>
-            </form>
-    
-            </div>
-
-        <h2 class="mt-4">Filtered Results</h2>
-
-        <div th:each="payroll : ${filteredPayrolls}" class="alert alert-info mt-2">
-            <h3 th:text="${payroll.id}"/>
-            <p>Employee: <span th:text="${payroll.employee.firstName} ?: 'Not Assigned'"/></p> 
-            <p>Gross pay: <span th:text="${payroll.grossPay}"/></p> 
-            <p th:text="${payroll.netPay}"/>
-            <p th:text="${payroll.comments}"/>
-            <p>Taxes: <span th:text="${payroll.paytax.size()}"></span></p> 
-            <a th:href="'/payroll/' + ${payroll.id}" class="btn btn-primary">Details</a>
-        </div>
-
-
-        <div th:if="${filteredPayrolls == null or filteredPayrolls.empty}">
-            No Payrolls Found
-        </div>
-    </div>
-
-    <script>
-        const filterButton = document.getElementById('filterButton');
-        const filterValueInput = document.getElementById('filterValue');
-
-        filterButton.addEventListener('click', (event) => {
-            if (filterValueInput.value.trim() === '' || filterValueInput.value === null) {
-                event.preventDefault(); // Stop form submission
-                alert('Please enter a filter value.');
-            }
-        });
-    </script> 
-
-    <footer th:insert="~{blocks/footer :: footer}"></footer>
-
-</body>
-</html> -->
-
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" class="dark">
 <head>
@@ -101,11 +31,6 @@
                 </div>
                 <div class="error-message" th:if="${error}" th:text="${error}" style="color: rgb(255, 102, 0);"></div> 
             </form>
-            
-
-            <!-- <div class="bg-violet-500 rounded-lg px-4 py-3">
-                <a class="btn btn-secondary text-white" href="/employees/add">Add New Employee</a>
-            </div> -->
         </div>
         <div class="table-container shadow-lg rounded-lg overflow-x-auto">
             <table class="table table-striped table-bordered table-dark w-full">

@@ -1,50 +1,3 @@
-<!-- <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <title>Taxes</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-
-<header th:insert="~{blocks/header :: header}"></header>
-    <div class="container mt-5 mb-5">
-        <h1>Adding tax</h1>
-        <form action="/taxes/add" method="post" onsubmit="return validateForm()">
-            <div class="error-message" th:if="${percentRateError}" th:text="${percentRateError}"></div> 
-            <input type="number" name="percentRate" placeholder="Percent rate" class="form-control"><br>
-            <div class="error-message" th:if="${taxNameError}" th:text="${taxNameError}"></div> 
-            <input type="text" name="taxName" placeholder="Name" class="form-control"><br>
-            <input type="text" name="description" placeholder="Description" class="form-control"><br>
-            <button type="submit" class="btn btn-success">Add</button>
-        </form>      
-    </div>
-
-<div th:insert="~{blocks/footer :: footer}"></div>
-
-<script>
-    function validateForm() {
-        var prc = document.forms[0].percentRate.value;
-        
-        if (prc === "") {
-            alert("Percent rate is required");
-            return false;
-        }
-        
-        if (prc < 0 || prc > 100) {
-            alert("Percent rate must be between 0 and 100");
-            return false;
-        }
-    }
-</script>
-
-</body>
-</html> -->
-
-<!-- percentRate
-description -->
-
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" class="dark">
 <head>
@@ -91,28 +44,6 @@ description -->
   </div>
 </body>
 </html>
-
-  
-<!-- <header th:insert="~{blocks/newheader :: header}"></header>
-      <div class="container mt-5 mb-5">
-        <h1>Adding employee</h1>
-        <form action="/employees/add" method="post">
-            <div class="error-message" th:if="${nameError}" th:text="${nameError}"></div> 
-            <input type="text" name="fname" placeholder="First name" class="form-control"><br>
-            <div class="error-message" th:if="${nameError}" th:text="${nameError}"></div> 
-
-            <input type="text" name="lname" placeholder="Last name" class="form-control"><br>
-            <input type="date" name="dob" placeholder="Date of birth" class="form-control"><br>
-            <input type="text" name="email" placeholder="Email" class="form-control"><br>
-
-            <div class="error-message" th:if="${departmentError}" th:text="${departmentError}"></div>
-            <input type="number" name="depid" placeholder="Department id" class="form-control"><br>
-            <div class="error-message" th:if="${positionError}" th:text="${positionError}"></div>
-            <input type="number" name="posid" placeholder="Position id" class="form-control"><br>
-            <button type="submit" class="btn btn-success">Add</button>
-        </form>      
-      </div>
-<div th:insert="~{blocks/footer :: footer}"></div> -->
 
 <script>
     const form = document.querySelector('form');

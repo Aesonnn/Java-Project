@@ -41,13 +41,6 @@ public class EmployeeController {
     @Autowired
     private positionRepository positionRepository;
 
-    // @GetMapping("/employees")
-    // public String some_map(Model model) {
-    //     Iterable<Employee> employees = employeeRepository.findAll();
-    //     model.addAttribute("employees", employees);
-    //     return "home";
-    // }
-
     @GetMapping("/employees")
     public String employees_main(Model model, @RequestParam(required = false) String sortField, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
@@ -105,11 +98,6 @@ public class EmployeeController {
             model.addAttribute("nameError", "First and last name are required");
             return "employees-add";
         }
-
-        // if (dob == null) {
-        //     model.addAttribute("dobError", "Date of birth is required");
-        //     return "employees-add";
-        // }
 
         Employee employee = new Employee(fname, lname, dob, email, null, null); // Initially set to null
 
@@ -240,15 +228,6 @@ public class EmployeeController {
                 department.ifPresent(res::add);
                 model.addAttribute("employee", res);
 
-                // if (department.isPresent()) {
-                //     Department dep = department.get();
-                //     long depId = dep.getId();
-                //     List<Employee> employees = employeeRepository.findByDepartmentId(depId);
-                //     model.addAttribute("employees", employees);
-                // }
-                // Long searchedId = res.get(0).getId();
-                // List<Employee> employees = employeeRepository.findByDepartmentId(depId);
-                // model.addAttribute("employees", employees);
                 return "employee-detail";
             } else {
                 throw new Exception("Record does not exist");
@@ -328,20 +307,3 @@ public class EmployeeController {
 
 
 }
-
-// @PostMapping("/departments/{id}/delete")
-// public String department_delete(@PathVariable(value = "id") long depId, Model model) {
-//     Department department = departmentRepository.findById(depId).orElseThrow();
-//     departmentRepository.delete(department);
-//     return "redirect:/departments";
-// }
-
-// if (departmentRepository.existsById(depId)) {
-//     Optional<Department> department = departmentRepository.findById(depId);
-//     ArrayList<Department> res = new ArrayList<>();
-//     department.ifPresent(res::add);
-//     model.addAttribute("dep", res);
-//     return "department-edit";
-// } else {
-//     return "redirect:/departments";
-// }

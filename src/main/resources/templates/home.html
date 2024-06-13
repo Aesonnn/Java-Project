@@ -58,17 +58,11 @@
             
                         <tbody>
                             <tr th:each="emp : ${employees}">
-                                <!-- <td class="px-4 py-2 text-center">
-                                    <div class="overflow-x-auto mx-auto" style="max-width: 200px;">
-                                        <span th:text="${emp.firstName + ' ' + emp.lastName}"></span>
-                                    </div>
-                                </td> -->
                                 <td style="word-break: break-word; white-space: normal;" class="px-4 py-2 text-center"> 
                                     <div class="overflow-x-auto mx-auto" style="max-width: 130px;">
                                         <span th:text="${emp.firstName + ' ' + emp.lastName}"></span>
                                     </div> 
                                 </td>
-                                <!-- <td th:text="${emp.position?.title} ?: 'Not Assigned'" class="px-4 py-2 text-center"></td>  -->
                                 <td style="word-break: break-word; white-space: normal;" class="px-4 py-2 text-center"> 
                                     <div class="overflow-x-auto mx-auto" style="max-width: 200px;">
                                         <span th:text="${emp.position?.title} ?: 'Not Assigned'"></span>
@@ -147,12 +141,6 @@
                             <td th:text="${tax.id}" class="px-4 py-2 text-center"></td>
                             <td th:text="${tax.percentRate}" class="px-4 py-2 text-center"></td> 
                             <td th:text="${tax.taxName}" class="px-4 py-2 text-center"></td> 
-                            <!-- <td th:text="${tax.description}" class="px-4 py-2 text-center"></td>  -->
-                            <!-- <td class="px-4 py-2 text-center">
-                                <div class="overflow-x-auto mx-auto" style="max-width: 200px;">
-                                    <span th:text="${tax.description}"></span>
-                                </div>
-                            </td> -->
                             <td style="word-break: break-word; white-space: normal;" class="px-4 py-2 text-center"> 
                                 <div class="overflow-x-auto mx-auto" style="max-width: 200px;">rth
                                     <span th:text="${tax.description}"></span>

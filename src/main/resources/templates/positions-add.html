@@ -1,43 +1,3 @@
-<!-- <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <title>Employees</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-
-<header th:insert="~{blocks/header :: header}"></header>
-    <div class="container mt-5 mb-5">
-        <h1>Adding position</h1>
-        <form action="/positions/add" method="post" onsubmit="return validateForm()">
-            <div class="error-message" th:if="${titleError}" th:text="${titleError}"></div> 
-            <input type="text" name="title" placeholder="Name of the position*" class="form-control"><br>
-            <input type="text" name="description" placeholder="Description" class="form-control"><br>
-            <input type="number" name="salaryMin" placeholder="Minimum salary" class="form-control"><br>
-            <input type="number" name="salaryMax" placeholder="Maximum salary" class="form-control"><br>
-            <button type="submit" class="btn btn-success">Add</button>
-        </form>      
-    </div>
-
-<div th:insert="~{blocks/footer :: footer}"></div>
-
-<script>
-    function validateForm() {
-        var title = document.forms[0].title.value;
-        var description = document.forms[0].description.value;
-        
-        if (title === "" || description === "") {
-            alert("Title and description are required");
-            return false;
-        }
-    }
-</script>
-
-</body>
-</html> -->
-
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" class="dark">
 <head>
@@ -90,28 +50,6 @@
   </div>
 </body>
 </html>
-
-  
-<!-- <header th:insert="~{blocks/newheader :: header}"></header>
-      <div class="container mt-5 mb-5">
-        <h1>Adding employee</h1>
-        <form action="/employees/add" method="post">
-            <div class="error-message" th:if="${nameError}" th:text="${nameError}"></div> 
-            <input type="text" name="fname" placeholder="First name" class="form-control"><br>
-            <div class="error-message" th:if="${nameError}" th:text="${nameError}"></div> 
-
-            <input type="text" name="lname" placeholder="Last name" class="form-control"><br>
-            <input type="date" name="dob" placeholder="Date of birth" class="form-control"><br>
-            <input type="text" name="email" placeholder="Email" class="form-control"><br>
-
-            <div class="error-message" th:if="${departmentError}" th:text="${departmentError}"></div>
-            <input type="number" name="depid" placeholder="Department id" class="form-control"><br>
-            <div class="error-message" th:if="${positionError}" th:text="${positionError}"></div>
-            <input type="number" name="posid" placeholder="Position id" class="form-control"><br>
-            <button type="submit" class="btn btn-success">Add</button>
-        </form>      
-      </div>
-<div th:insert="~{blocks/footer :: footer}"></div> -->
 
 <script>
     function validateForm() {

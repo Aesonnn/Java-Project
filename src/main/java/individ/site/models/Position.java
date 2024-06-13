@@ -32,9 +32,6 @@ public class Position {
 
     @OneToMany(mappedBy = "position")
     private List<Employee> employees = new ArrayList<>();
-
-    // @OneToMany(mappedBy = "position")
-    // private List<Employee> employees = new ArrayList<>();
     
     public Position() {
     }
@@ -50,22 +47,6 @@ public class Position {
         this.title = title;
         this.description = description;
     }
-
-
-    
-    // public void setEmployee(Employee employee) {
-    //     if (employee.getDepartment() != null) {
-    //         employee.getDepartment().getEmployees().remove(employee);
-    //     }
-    //     employee.setDepartment(this);
-    //     employees.add(employee);
-    // }
-
-    // public List<Employee> getEmployees() {
-    //     return employees;
-    // }
-
-
 
     public Long getId() {
         return id;

@@ -23,8 +23,6 @@ import org.springframework.ui.Model;
 @SessionAttributes("loggedInUser")
 public class UserController {
 
-    // @Autowired
-    // private UserService userService;
 
     @Autowired
     private UserRepository userRepositoryrepo;
@@ -59,16 +57,6 @@ public class UserController {
     public String showRegistrationForm(Model model) {
         return "register";
     }
-
-    // @PostMapping("/register")
-    // public String register(@ModelAttribute("user") @Valid User user, BindingResult result) {
-    //     if (result.hasErrors()) {
-    //         return "register";
-    //     }
-
-    //     userService.register(user);
-    //     return "redirect:/login"; // Redirect to login page after registration
-    // }
 
     @PostMapping("/register")
     public String register(@RequestParam String username,

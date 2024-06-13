@@ -50,12 +50,6 @@ public class DepartmentController {
         return "departments-add";
     }
 
-    // @PostMapping("/departments/add")
-    // public String department_post_add(@RequestParam String title, @RequestParam String description, Model model) {
-    //     Department department = new Department(title, description);
-    //     departmentRepository.save(department);
-    //     return "redirect:/departments";
-    // }
 
     @PostMapping("/departments/add")
     public String department_post_add(@RequestParam String title, 
@@ -89,13 +83,7 @@ public class DepartmentController {
                 department.ifPresent(res::add);
                 model.addAttribute("dep", res);
 
-                // if (department.isPresent()) {
-                //     Department dep = department.get();
-                //     long depId = dep.getId();
-                //     List<Employee> employees = employeeRepository.findByDepartmentId(depId);
-                //     model.addAttribute("employees", employees);
-                // }
-                // Long searchedId = res.get(0).getId();
+
                 List<Employee> employees = employeeRepository.findByDepartmentId(depId);
                 model.addAttribute("employees", employees);
                 return "department-detail";

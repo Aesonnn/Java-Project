@@ -43,18 +43,6 @@ public class Payroll {
     @OneToMany(mappedBy = "payroll")
     private List<PayrollTax> paytax = new ArrayList<>();
 
-    
-    // public void setPayrollTax(PayrollTax payrollTax) {
-    //     if (payrollTax.getTax() != null) {
-    //         payrollTax.getPayroll().getPayrollTax().remove(payrollTax);
-    //     }
-    //     payrollTax.setPayroll(this);
-    //     payrolltax.add(payrollTax);
-    // }
-
-    // public List<PayrollTax> getPayrollTax() {
-    //     return payrolltax;
-    // }
 
     public void delete_all_paytax() {
         paytax.clear();
@@ -143,11 +131,3 @@ public class Payroll {
     }
 
 }
-
-// public void setPayroll(Payroll payroll) {
-//     if (payroll.getEmployee() != null) {
-//         payroll.getEmployee().getPayrolls().remove(payroll);
-//     }
-//     payroll.setEmployee(this);
-//     payrolls.add(payroll);
-// }

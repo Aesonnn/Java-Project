@@ -36,8 +36,6 @@ public class Department {
     }
 
     // Getters and setters
-    // Naming is critically IMPORTANT!!!!!!!!
-
     public void setEmployee(Employee employee) {
         if (employee.getDepartment() != null) {
             employee.getDepartment().getEmployees().remove(employee);

@@ -22,7 +22,6 @@ public abstract class Person {
     }
 
     // Getters and Setters for firstName and lastName
-
     public String getFirstName() {
         return firstName;
     }

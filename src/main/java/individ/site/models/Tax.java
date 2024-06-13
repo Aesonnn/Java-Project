@@ -25,25 +25,6 @@ public class Tax implements Deduction{
 
     @Column(name = "description", nullable = true)
     private String description;
-    
-
-    // @OneToMany(mappedBy = "tax")
-    // private List<PayrollTax> payroll_tax = new ArrayList<>();
-
-    // // Constructors, getters, and setters
-    
-    
-    // public void setPayrollTax(PayrollTax payrollTax) {
-    //     if (payrollTax.getTax() != null) {
-    //         payrollTax.getTax().getPayrollTax().remove(payrollTax);
-    //     }
-    //     payrollTax.setTax(this);
-    //     payroll_tax.add(payrollTax);
-    // }
-
-    // public List<PayrollTax> getPayrollTax() {
-    //     return payroll_tax;
-    // }
 
     @Override
     public void deduct(Payroll payroll) {

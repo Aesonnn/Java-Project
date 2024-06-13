@@ -16,16 +16,8 @@ import individ.site.repo.taxRepository;
 @Controller
 public class MainController {
 
-    // @GetMapping(value = "/**/{path:[^\\.]*}")
-    // public String redirect() {
-    //     return "forward:/";
-    // }
-
     @Autowired
     private payrollRepository payrollRepository;
-
-    // @Autowired
-    // private payrolltaxRepository payrolltaxRepository;
 
     @Autowired
     private taxRepository taxRepository;
@@ -46,22 +38,6 @@ public class MainController {
         model.addAttribute("employees", employeeRepository.findAll());
         return "home";
     }
-
-    // @GetMapping("/login")
-    // public String login() {
-    //     return "login";
-    // }
-
-
-    // @GetMapping("/user")
-    // public String user() {
-    //     return "positions";
-    // }
-
-    // @GetMapping("/test")
-    // public String testtemp() {
-    //     return "aem";
-    // }
 
     @GetMapping("/admin")
     public String admin() {

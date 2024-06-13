@@ -99,25 +99,6 @@ public class PositionController {
         return "positions-summary"; 
     }
 
-    // Iterable<Employee> employees;
-    // if (sortField != null) {
-    //     switch (sortField) {
-    //         case "departmentNumber":
-    //              // Excluding employees without a department
-    //             employees = employeeRepository.findAllByDepartmentIsNotNullOrderByDepartment();
-    //             break;
-    //         case "firstName":
-    //             employees = employeeRepository.findAllByOrderByFirstName();
-    //             break;
-    //         default:
-    //             employees = employeeRepository.findAll();
-    //     }
-    // } else {
-    //     employees = employeeRepository.findAll();
-    // }
-    // model.addAttribute("employees", employees);
-    // return "employees";
-    
 
     @GetMapping("/positions/add")
     public String positions_add(Model model, HttpSession session) {
@@ -290,55 +271,3 @@ public class PositionController {
     }
 
 }
-
-// @PostMapping("/employees/filter")
-// public String filterEmployees(@RequestParam String filterBy, 
-//                             @RequestParam(required = false) String keyword, 
-//                             Model model) {
-
-//     List<Employee> filteredEmployees = new ArrayList<>();
-//     switch (filterBy) {
-//         case "firstName":
-//             filteredEmployees = employeeRepository.findByFirstNameContaining(keyword); // More flexible search
-//             break;
-//         case "lastName":
-//             filteredEmployees = employeeRepository.findByLastNameContaining(keyword);  // More flexible search
-//             break;
-//         case "departmentId":
-//             if (keyword != null) {
-//                 try {
-//                     long departmentId = Long.parseLong(keyword);
-//                     filteredEmployees.addAll(employeeRepository.findByDepartmentId(departmentId));
-//                 } catch (NumberFormatException e) {
-//                     // Handle the case when the keyword is not a valid integer
-//                     model.addAttribute("keywordError", "Keyword must be an integer");
-//                     return "employees-filter";
-//                 }
-//             }
-//             break;
-//         case "employeeId":
-//             if (keyword != null) {
-//                 try {
-//                     long employeeId = Long.parseLong(keyword);
-//                     Optional<Employee> employee = employeeRepository.findById(employeeId);
-//                     employee.ifPresent(filteredEmployees::add); // Add if found
-//                 } catch (NumberFormatException e) {
-//                     // Handle the case when the keyword is not a valid integer
-//                     model.addAttribute("keywordError", "Keyword must be an integer");
-//                     return "employees-filter";
-//                 }
-//             }
-//             break; 
-//         case "positionId":
-//             if (keyword != null) {
-
-//                 long positionId = Long.parseLong(keyword); 
-//                 filteredEmployees.addAll(employeeRepository.findByPositionId(positionId));
-
-//             }
-//             break; 
-//         }
-
-//     model.addAttribute("filteredEmployees", filteredEmployees);
-//     return "employees-filter"; 
-// }

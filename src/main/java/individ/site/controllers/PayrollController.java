@@ -49,8 +49,6 @@ public class PayrollController {
     @Autowired
     private employeeRepository employeeRepository;
 
-    // @Autowired 
-    // private taxRepository taxRepository;
 
 
     @GetMapping("/payrolls")
@@ -75,29 +73,6 @@ public class PayrollController {
                     payrolls = payrollRepository.findAllByOrderByEmployeeDesc();
                     break;
                 case "taxesnum": 
-                    // Map<Long, Long> payrollIdCounts = new HashMap<>();
-                    // Iterable<PayrollTax> payrollTaxes = payrolltaxRepository.findAll();
-                    // for (PayrollTax payrollTax : payrollTaxes) {
-                    //     Long payrollId = payrollTax.getPayrollId();
-                    //     if (payrollIdCounts.containsKey(payrollId)) {
-                    //         payrollIdCounts.put(payrollId, payrollIdCounts.get(payrollId) + 1);
-                    //     } else {
-                    //         payrollIdCounts.put(payrollId, 1L);
-                    //     }
-                    // }
-                    
-                    // // Now we know which payroll has how many taxes
-                    // // Sort the payrolls by the number of taxes
-                    // List<Payroll> sortedPayrolls = new ArrayList<>();
-                    // for (Map.Entry<Long, Long> entry : payrollIdCounts.entrySet()) {
-                    //     Long payrollId = entry.getKey();
-                    //     Long taxCount = entry.getValue();
-                    //     Optional<Payroll> payroll = payrollRepository.findById(payrollId);
-                    //     payroll.ifPresent(p -> {
-                    //         p.setTaxCount(taxCount);
-                    //         sortedPayrolls.add(p);
-                    //     });
-                    // }
                     payrolls = payrollRepository.findAll();
                     List<Payroll> payrollList = new ArrayList<>();
                     payrolls.forEach(payrollList::add);
@@ -124,13 +99,6 @@ public class PayrollController {
             if (payrollRepository.existsById(prId)) {
                 Payroll payroll = payrollRepository.findById(prId).orElseThrow();
                 model.addAttribute("payrolls", payroll);
-
-                // List<PayrollTax> payrollTaxes = res.get(0).getPayrollTax();
-                // List<Tax> taxFields = new ArrayList<>();
-                // for (PayrollTax payrollTax : payrollTaxes) {
-                //     taxFields.add(payrollTax.getTax());
-                // }
-
 
                 List<PayrollTax> payrollTaxes = payrolltaxRepository.findByPayrollId(prId);
                 List<Tax> taxFields = new ArrayList<>();
@@ -292,17 +260,6 @@ public class PayrollController {
             }
         }
         
-        // net_pay = grossPay;
-        // if (taxIds != null) {
-        //     for (Long taxId : taxIds) {
-        //         Optional<Tax> tax = taxRepository.findById(taxId);
-        //         tax.ifPresent(t -> {
-        //             net_pay -= (grossPay * t.getPercentRate() / 100.0); 
-        //         });
-        //     }
-        //     payroll.setGrossPay(grossPay);
-        //     payroll.setNetPay(net_pay);
-        // }
     
         payrollRepository.save(payroll);
         return "redirect:/payrolls"; // Redirect to a page listing payrolls
@@ -344,10 +301,8 @@ public class PayrollController {
 
         
         if (filterValue == null) {
-            // find all payrolls
             Iterable<Payroll> filteredPayroll = payrollRepository.findAll();
             model.addAttribute("filteredPayrolls", filteredPayroll);
-            // model.addAttribute("error", "Please enter a value to filter by");
             return "payrolls-filter"; 
         }
 
@@ -379,10 +334,6 @@ public class PayrollController {
                                         .collect(Collectors.toList());
                 
                 filteredPayroll = filteredPayrolls;
-
-            // List<Payroll> filteredPayrolls = StreamSupport.stream(payrollRepository.findAll().spliterator(), false)
-            // .filter(p -> p.getPaytax().size() == taxCount)
-            // .collect(Collectors.toList());
         }
         model.addAttribute("filteredPayrolls", filteredPayroll);
         return "payrolls-filter"; 
@@ -417,33 +368,3 @@ public class PayrollController {
         return "payrolls-summary"; // Name of your view file
     }
 }
-
-
-// @PostMapping("/payrolls/add")
-//     public String payroll_post_add(@RequestParam String comments,
-//                                 @RequestParam(required = false) List<Long> taxIds,
-//                                 Model model) {
-
-//         Payroll payroll = new Payroll(comments); 
-//         payrollRepository.save(payroll); 
-
-//         if (taxIds != null) {
-//             for (Long taxId : taxIds) {
-//                 Optional<Tax> tax = taxRepository.findById(taxId);
-//                 tax.ifPresent(t -> {
-//                     PayrollTax payrollTax = new PayrollTax(payroll, t);
-//                     payrolltaxRepository.save(payrollTax);
-//                 });
-//             }
-//         }
-
-// if (taxIds != null) {
-//     for (Long taxId : taxIds) {
-//         Optional<Tax> tax = taxRepository.findById(taxId);
-//         tax.ifPresent(t -> {
-//             net_pay -= (grossPay * t.getPercentRate() / 100.0); 
-//         });
-//     }
-//     payroll.setGrossPay(grossPay);
-//     payroll.setNetPay(net_pay);
-// }

@@ -35,13 +35,7 @@ public class Employee extends Person {
     @OneToMany(mappedBy = "employee")
     private List<Payroll> payrolls = new ArrayList<>();
 
-    
-    // @Column(name = "first_name", nullable = false)
-    // private String firstName;
-    
-    // @Column(name = "last_name", nullable = false)
-    // private String lastName;
-    
+
     @Column(name = "dob", nullable = false)
     private Date dob;
     
@@ -70,8 +64,6 @@ public class Employee extends Person {
         this.position = position;
     }
 
-    // Getters and setters
-    
     // Getters and setters
 
     public void setDepartment(Department department) {
@@ -109,22 +101,6 @@ public class Employee extends Person {
     public void setId(Long id) {
         this.id = id;
     }
-
-    // public String getFirstName() {
-    //     return firstName;
-    // }
-
-    // public void setFirstName(String name) {
-    //     this.firstName = name;
-    // }
-
-    // public String getLastName() {
-    //     return lastName;
-    // }
-
-    // public void setLastName(String lastName) {
-    //     this.lastName = lastName;
-    // }
 
     public Date getDob() {
         return dob;
