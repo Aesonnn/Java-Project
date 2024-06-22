@@ -118,6 +118,4 @@ public class Employee extends Person {
         this.email = email;
     }
 
-
-    
 }

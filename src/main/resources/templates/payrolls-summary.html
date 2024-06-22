@@ -40,7 +40,7 @@
 
                 <tbody>
                     <div th:if="${filteredPayrolls != null}"> 
-                        <p><strong>Number of payrolls with <span th:text="${taxCount}"> </span> taxes:</strong> <span th:text="${filteredPayrolls.size()}"></span></p>
+                        <p><strong>Number of payrolls with <span th:text="${taxCount}"> </span> taxes: <span th:text="${filteredPayrolls.size()}"></span></strong></p>
                         <p><strong>Number of payrolls: <span th:text="${payrollRepositorySize}"></span></strong> <s</p>
                     </div>
                     <tr th:each="payroll : ${filteredPayrolls}">

@@ -19,7 +19,8 @@
       <p class="mb-2">Position: <span th:text="${emp.position?.title} ?: 'Not Assigned'"/></p>
       <p class="mb-2">Date of birth: <span th:text="${#dates.format(emp.dob, 'dd-MM-yyyy')}"></span></p>
       <p class="mb-2">Email: <span th:text="${emp.email}"></span></p>
-      <p class="mb-2">Payrolls: <span th:text="${emp.payrolls.size()}"></span></p>
+      <p class="mb-2"><a th:href="'/payrolls/filter-' + ${emp.id}">Payrolls: <span th:text="${emp.payrolls.size()}"></span></a></p>
+
 
       <div class="mt-4">
         <a th:href="'/employee/' + ${emp.id} + '/edit'" class="btn btn-primary text-white bg-yellow-500 hover:bg-yellow-600 rounded-lg px-6 py-2 inline-block mr-3">Edit</a> 

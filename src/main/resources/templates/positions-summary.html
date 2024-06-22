@@ -41,7 +41,7 @@
 
                 <tbody>
                     <div th:if="${filteredPositions != null}"> 
-                        <p><strong>Number of positions with <span th:text="${employeeCount}"> </span> assigned employees:</strong> <span th:text="${filteredPositions.size()}"></span></p>
+                        <p><strong>Number of positions with <span th:text="${employeeCount}"> </span> assigned employees: <span th:text="${filteredPositions.size()}"></span></strong></p>
                         <p><strong>Number of positions: <span th:text="${positionRepositorySize}"></span></strong> <s</p>
                     </div>
                     <tr th:each="pos : ${filteredPositions}">
